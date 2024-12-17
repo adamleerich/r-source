@@ -11,8 +11,8 @@ Check file listing at https://cran.r-project.org/bin/windows/Rtools/rtools44/fil
 
 ```sh
 # From the R source root directory
-wget "https://cran.r-project.org/bin/windows/Rtools/rtools44/files/tcltk-6104-6025.zip"
-unzip "tcltk-6104-6025.zip"
+wget "https://cran.r-project.org/bin/windows/Rtools/rtools44/files/tcltk-6335-6025.zip"
+unzip "tcltk-6335-6025.zip"
 ```
 
 
@@ -33,7 +33,7 @@ make all
 
 ```sh
 # From ./src/gnuwin32/
-mark rbuild
+make rbuild
 ```
 
 
@@ -42,9 +42,9 @@ mark rbuild
 
 ```sh
 # From ./src/nmath/standalone
-make -F Makefile.win
-make -F Makefile.win test.exe
-make -F Makefile.win test-static.exe
+make -f Makefile.win
+make -f Makefile.win test.exe
+make -f Makefile.win test-static.exe
 ```
 
 
