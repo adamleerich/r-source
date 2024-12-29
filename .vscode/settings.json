@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "MkRules*": "makefile",
+        "Makefile*": "makefile",
+        "README": "txt"
+    },
+
+    "search.exclude": {
+        "**/*.po": true,
+        "doc/NEWS*": true,
+        "m4/": true,
+        "*.ac": true
+    }   
+}
