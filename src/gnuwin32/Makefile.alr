@@ -1,0 +1,56 @@
+R_HOME = ../..
+SRC_INCLUDE = ../include
+
+
+all: $(SRC_INCLUDE)/Rversion.h
+
+
+$(R_HOME)/SVN-REVISION: FORCE
+	@echo "Revision: 00000" > $@
+	@echo "Last Changed Date: 2006-00-00" >> $@
+
+# These do not have recipes, and must exist in the source code
+#
+#     $(R_HOME)/VERSION
+#     $(R_HOME)/tools/GETVERSION
+#
+$(SRC_INCLUDE)/Rversion.h: $(R_HOME)/VERSION $(R_HOME)/SVN-REVISION $(R_HOME)/tools/GETVERSION
+	@sh $(R_HOME)/tools/GETVERSION > $@
+
+
+
+FORCE:
+
+
+
+
+checkdefs:
+ifdef USE_IMPLIBS
+	@echo USE_IMPLIBS = $(USE_IMPLIBS)
+else
+	@echo USE_IMPLIBS not defined
+endif
+ifdef USE_LIBCURL
+	@echo USE_LIBCURL = $(USE_LIBCURL)
+else
+	@echo USE_LIBCURL not defined
+endif
+ifdef CURL_PATH
+	@echo CURL_PATH = $(CURL_PATH)
+else
+	@echo CURL_PATH not defined
+endif
+ifdef CURL_CA_BUNDLE
+	@echo CURL_CA_BUNDLE = $(CURL_CA_BUNDLE)
+else
+	@echo CURL_CA_BUNDLE not defined
+endif
+ifdef R_HOME
+	@echo R_HOME = $(R_HOME)
+else
+	@echo R_HOME not defined
+endif
+
+
+
+
