@@ -407,3 +407,31 @@ makeMakedeps: $(DEPS)
 	@cat $(DEPS) >> Makedeps
 
 -include Makedeps
+
+
+
+## === ALR Custom ========
+
+checkdefs:
+	@$(MK) MkRules
+ifdef USE_IMPLIBS
+	@echo USE_IMPLIBS = $(USE_IMPLIBS)
+else
+	@echo USE_IMPLIBS not defined
+endif
+ifdef USE_LIBCURL
+	@echo USE_LIBCURL = $(USE_LIBCURL)
+else
+	@echo USE_LIBCURL not defined
+endif
+ifdef CURL_PATH
+	@echo CURL_PATH = $(CURL_PATH)
+else
+	@echo CURL_PATH not defined
+endif
+ifdef CURL_CA_BUNDLE
+	@echo CURL_CA_BUNDLE = $(CURL_CA_BUNDLE)
+else
+	@echo CURL_CA_BUNDLE not defined
+endif
+
