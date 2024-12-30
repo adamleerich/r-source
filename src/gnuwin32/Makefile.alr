@@ -1,21 +1,79 @@
+# Locations -------------------------------------------------------------------
 R_HOME = ../..
 SRC_INCLUDE = ../include
+FRONT_ENDS = ./front-ends
+# BINDIR = bin/x64
 
 
-all: $(SRC_INCLUDE)/Rversion.h
+# From vars.mk ----------------------------------------------------------------
+R_PKGS_BASE = base tools utils grDevices graphics stats datasets methods grid splines stats4 tcltk compiler parallel
+R_PKGS_BASE1 = utils grDevices graphics stats datasets methods grid splines stats4 tcltk parallel
+R_PKGS_BASE2 = base tools utils grDevices graphics stats grid splines stats4 tcltk compiler parallel
+R_PKGS_RECOMMENDED =  MASS lattice Matrix nlme survival boot cluster codetools foreign KernSmooth rpart class nnet spatial mgcv
 
 
-$(R_HOME)/SVN-REVISION: FORCE
-	@echo "Revision: 00000" > $@
-	@echo "Last Changed Date: 2006-00-00" >> $@
 
-# These do not have recipes, and must exist in the source code
-#
-#     $(R_HOME)/VERSION
-#     $(R_HOME)/tools/GETVERSION
-#
-$(SRC_INCLUDE)/Rversion.h: $(R_HOME)/VERSION $(R_HOME)/SVN-REVISION $(R_HOME)/tools/GETVERSION
-	@sh $(R_HOME)/tools/GETVERSION > $@
+
+
+
+# From front-ends/Makefile ----------------------------------------------------
+CFLAGS = -O3 -Wall -pedantic
+ifdef DEBUG
+ CFLAGS += $(G_FLAG)
+ LINKFLAGS =
+ DLLFLAGS =
+else
+ LINKFLAGS = -s
+ DLLFLAGS = -s
+endif
+CPPFLAGS = -I../../include $(arch_DEFS)
+RESFLAGS = -DWN64
+LARGE_STACK = -Wl,--stack=0x4000000
+R-LIBS = -lole32 -luuid
+Rcmd-LIBS = -lole32 -luuid
+Rfe-LIBS = -lole32 -luuid
+Rgui-LIBS = -L../../../$(IMPDIR) -lR -lRgraphapp
+Rscript-LIBS = -L../../../$(IMPDIR) -lR -lRgraphapp -lshlwapi
+Rterm-LIBS = -L../../../$(IMPDIR) -lR -lRgraphapp -lshlwapi
+Rgui-LINKFLAGS = -mwindows $(LARGE_ADDR) $(LARGE_STACK)
+Rterm-LINKFLAGS = $(LARGE_ADDR) $(LARGE_STACK)
+Rscript-LINKFLAGS = $(LARGE_ADDR) $(LARGE_STACK)
+rcmdfn-CFLAGS = -DBINDIR='"$(BINDIR)"'
+rgui-CPPFLAGS = -DWin32
+rterm-CPPFLAGS = -DWin32
+
+
+
+# Hard code this definition so we don't need Rpwd.exe -------------------------
+LOCAL_SOFT = C:/rtools44/x86_64-w64-mingw32.static.posix
+
+
+
+
+include Mkrules.rules
+
+
+
+
+.PHONY: version fixfiles clean
+
+
+
+fixfiles:
+	@$(MKDIR) -p $(R_HOME)/$(BINDIR)
+
+
+version: $(R_HOME)/VERSION $(R_HOME)/tools/GETVERSION
+	@echo "Revision: 00000" > $(R_HOME)/SVN-REVISION
+	@echo "Last Changed Date: 2006-00-00" >> $(R_HOME)/SVN-REVISION
+	@sh $(R_HOME)/tools/GETVERSION > $(SRC_INCLUDE)/Rversion.h
+
+
+
+clean: 
+	@rm $(R_HOME)/SVN-REVISION
+	@rm $(SRC_INCLUDE)/Rversion.h
+
 
 
 
@@ -50,7 +108,79 @@ ifdef R_HOME
 else
 	@echo R_HOME not defined
 endif
-
-
-
+ifdef CC
+	@echo CC = $(CC)
+else
+	@echo CC not defined
+endif
+ifdef CPPFLAGS
+	@echo CPPFLAGS = $(CPPFLAGS)
+else
+	@echo CPPFLAGS not defined
+endif
+ifdef CFLAGS
+	@echo CFLAGS = $(CFLAGS)
+else
+	@echo CFLAGS not defined
+endif
+ifdef DEFINES
+	@echo DEFINES = $(DEFINES)
+else
+	@echo DEFINES not defined
+endif
+ifdef DEBUG
+	@echo DEBUG = $(DEBUG)
+else
+	@echo DEBUG not defined
+endif
+ifdef G_FLAG
+	@echo G_FLAG = $(G_FLAG)
+else
+	@echo G_FLAG not defined
+endif
+ifdef arch_DEFS
+	@echo arch_DEFS = $(arch_DEFS)
+else
+	@echo arch_DEFS not defined
+endif
+ifdef LINKER
+	@echo LINKER = $(LINKER)
+else
+	@echo LINKER not defined
+endif
+ifdef LINKFLAGS
+	@echo LINKFLAGS = $(LINKFLAGS)
+else
+	@echo LINKFLAGS not defined
+endif
+ifdef LIBS
+	@echo LIBS = $(LIBS)
+else
+	@echo LIBS not defined
+endif
+ifdef IMPDIR
+	@echo IMPDIR = $(IMPDIR)
+else
+	@echo IMPDIR not defined
+endif
+ifdef LARGE_ADDR
+	@echo LARGE_ADDR = $(LARGE_ADDR)
+else
+	@echo LARGE_ADDR not defined
+endif
+ifdef LARGE_STACK
+	@echo LARGE_STACK = $(LARGE_STACK)
+else
+	@echo LARGE_STACK not defined
+endif
+ifdef BINDIR
+	@echo BINDIR = $(BINDIR)
+else
+	@echo BINDIR not defined
+endif
+ifdef LOCAL_SOFT
+	@echo LOCAL_SOFT = $(LOCAL_SOFT)
+else
+	@echo LOCAL_SOFT not defined
+endif
 
