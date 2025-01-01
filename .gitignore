@@ -30,7 +30,7 @@
 /src/modules/internet/Makedeps
 /src/modules/lapack/Makedeps
 /src/nmath/Makedeps
-/src/gnuwin32/MkRules
+# /src/gnuwin32/MkRules
 
 /src/library/grDevices/src/Makedeps
 /src/library/graphics/src/Makedeps
@@ -146,7 +146,7 @@
 /src/include/libintl.h
 /src/include/psignal.h
 /src/include/Rconfig.h
-/src/include/Rmath.h
+# /src/include/Rmath.h
 /src/include/Rmath.h0
 /src/include/Rversion.h
 /src/include/trioremap.h

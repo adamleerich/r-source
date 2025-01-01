@@ -1,14 +1,36 @@
 {
+    // https://www.msys2.org/docs/ides-editors/
+    "terminal.integrated.profiles.windows": {
+        "mingw64": {
+            "path": "cmd.exe",
+            "args": [
+                "/c",
+                "C:\\rtools44\\msys2_shell.cmd -defterm -here -no-start -mingw64"
+            ],
+            "env": {}
+        },
+    },
+    // https://code.visualstudio.com/docs/terminal/profiles
+    "terminal.integrated.defaultProfile.windows": "mingw64",
+    "terminal.integrated.automationProfile.windows": {
+        // As of 2024-12-31 VSCode automatically adds  /d /c to the command/path
+        // so one has to use cmd.exe and add the args above or something similar
+        // to the task command instead
+        "path": "cmd.exe"
+    },
+    "terminal.integrated.enablePersistentSessions": false,
+    "terminal.integrated.useWslProfiles": false,
     "files.associations": {
         "MkRules*": "makefile",
         "Makefile*": "makefile",
-        "README": "txt"
+        "README": "txt",
+        "nmath.h": "c",
+        "rconfig.h": "c"
     },
-
     "search.exclude": {
         "**/*.po": true,
         "doc/NEWS*": true,
         "m4/": true,
         "*.ac": true
-    }   
+    }
 }

@@ -48,7 +48,15 @@ make -f Makefile.win test-static.exe
 ```
 
 
+### Targets needed for R Windows project
 
+```sh
+# src/gnuwin32/MkRules
+make -C src/gnuwin32 -f Makefile MkRules
+
+# src/include/Rmath.h
+make -C src/include -f Makefile.win Rmath.h
+```
 
 
 
