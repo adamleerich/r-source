@@ -2,7 +2,9 @@
     "files.associations": {
         "MkRules*": "makefile",
         "Makefile*": "makefile",
-        "README": "txt"
+        "README": "txt",
+        "internal.h": "c",
+        "defn.h": "c"
     },
 
     "search.exclude": {
